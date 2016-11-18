@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+    {% block content %}
+
+        <link rel="stylesheet" href="{{ asset('bundles/framework/css/forTable.css') }}">
+
+
+        <table>
+
+            <table class="table">
+                <tr>
+                    <td class="title" colspan="2"> {{ event.title }} </td>
+                </tr>
+                <tr>
+                    <td class="myDescription" colspan="2"> {{ event.description }}</td>
+                </tr>
+
+                <tr>
+                    <td class="time"> {{ event.time|date('Y-m-d H:i:s') }}</td>
+                    <td class="place"> {{ event.place }}</td>
+
+
+                </tr>
+
+
+            </table>
+            <div align="center">
+            <h3>
+                {% for user in users %}
+
+                    <ul>  {{ user.username }} is going to this Event.</ul>
+
+
+                {% endfor %}
+            </h3>
+                </div>
+
+        </table>
+
+
+    {% endblock %}
+
+

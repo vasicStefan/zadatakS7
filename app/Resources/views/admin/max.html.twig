@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+    {% block content %}
+
+
+        <link rel="stylesheet" href="{{ asset('bundles/framework/css/forTable.css') }}">
+
+
+        <table class="table">
+
+
+            <tr>
+                <td colspan="3" class="title">{{ event.0.title }}  </td>
+
+            </tr>
+
+
+            <tr>
+                <td colspan="3" class="description"><h4>{{ event.0.description }}</h4></td>
+            </tr>
+            <tr>
+                <td><h5> {{ event.0.time|date('Y-m-d H:i:s') }}</h5></td>
+                <td align="center"><h5> {{ event.0.place }}</h5></td>
+
+            </tr>
+
+            <tr>
+                <td colspan="3" align="center"> The number of participants is {{ event.c }} </td>
+            </tr>
+
+
+        </table>
+    {% endblock %}

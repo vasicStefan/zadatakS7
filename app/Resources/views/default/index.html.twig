@@ -1,0 +1,87 @@
+{% extends '::base.html.twig' %}
+
+
+{% block content %}
+    {% block stylesheet %}
+        <link href="{{ asset('bundles/framework/css/forTable.css') }}" type="text/css" rel="stylesheet"/>
+
+
+    {% endblock %}
+
+    <div>
+
+
+        <div align="left">
+            <form action="{{ path('list') }}" method="get" class="form-inline">
+
+
+                <label for="filter">Title filter</label>
+                <input name="filter" type="text" class="form-control">
+
+
+                {#<label for="time">Date and time filter</label>#}
+                {#<input type="datetime-local" name="time">#}
+
+
+                <label for="place">Place filter</label>
+                <select name="place" class="form-control">
+                    <option value=""> None</option>
+                    {% for place in places %}
+                        <option value="{{ place.place }}">{{ place.place }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit" class="btn btn-default"> Filter</button>
+                <div align="right">
+                    {% if is_granted('ROLE_ADMIN') %}
+
+                        <a href="{{ path('add') }}" class="btn btn-success">Add new</a>
+                        <a href="{{ path('max') }}" class="btn btn-default">Max </a>
+                    {% endif %}
+                </div>
+
+            </form>
+        </div>
+
+
+        <table class="table">
+            {% for event in events %}
+
+                <tr>
+                    <td colspan="3" align="center"><h1> {{ event.title }} </h1></td>
+
+                </tr>
+
+
+                <tr>
+                    <td colspan="3"><h4>{{ event.description }}</h4></td>
+                </tr>
+                <tr>
+                    <td><h5> {{ event.time|date('Y-m-d H:i:s') }}</h5></td>
+                    <td align="center"><h5> {{ event.place }}</h5></td>
+                    <td align="right">
+                        <a href="{{ path('attend', {'event':event.id}  ) }}" class="btn btn-success">Enroll</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+
+                            <a href="{{ path('edit', {'event':event.id} ) }}" class="btn btn-default">Edit</a>
+                            <a href="{{ path('delete', {'event':event.id} ) }}" class="btn btn-danger">Delete</a>
+                            <a href="{{ path('pList',{'event':event.id}) }}" class="btn btn-default">Participants</a>
+
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="navigation text-center">
+        {{ knp_pagination_render(events) }}
+    </div>
+
+
+
+{% endblock %}
+
+
+
